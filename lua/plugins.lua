@@ -36,6 +36,20 @@ return require('packer').startup(function(use)
         config = function()
             require('dashboard').setup {
                 -- config
+                theme = 'hyper', --  theme is doom and hyper default is hyper
+                --  config used for theme
+                config = {
+                    shortcut = {
+                        -- action can be a function type
+                        { desc = string, group = 'highlight group', key = 'shortcut key',
+                            action = 'action when you press key' },
+                    },
+                    packages = { enable = true }, -- show how many plugins neovim loaded
+                    -- limit how many projects list, action when you press key or enter it will run this action.
+                    project = { limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
+                    mru = { limit = 10, icon = 'your icon', label = '', },
+                    footer = {}, -- footer
+                },
             }
         end,
         requires = { 'nvim-tree/nvim-web-devicons' }
