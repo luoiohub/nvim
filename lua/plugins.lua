@@ -21,5 +21,13 @@ require("lazy").setup({
     { "folke/neoconf.nvim", cmd = "Neoconf" },
     "folke/neodev.nvim",
     "folke/tokyonight.nvim",
-    "neovim/nvim-lspconfig"
+    "neovim/nvim-lspconfig",
+    {
+        'glepnir/dashboard-nvim',
+        event = 'VimEnter',
+        opts = {
+            -- config
+        },
+        dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+    }
 })
