@@ -31,47 +31,63 @@ return require('packer').startup(function(use)
     use "neovim/nvim-lspconfig"
 
     use {
-        'glepnir/dashboard-nvim',
-        event = 'VimEnter',
+        'goolord/alpha-nvim',
+        requires = { 'nvim-tree/nvim-web-devicons' },
         config = function()
-            require('dashboard').setup {
-                -- config
-                theme = 'hyper',
-                config = {
-                    week_header = {
-                        enable = true,
-                    },
-                    shortcut = {
-                        { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
-                        {
-                            desc = ' Files',
-                            group = 'Label',
-                            action = 'Telescope find_files',
-                            key = 'f',
-                        },
-                        {
-                            desc = ' Apps',
-                            group = 'DiagnosticHint',
-                            action = 'Telescope app',
-                            key = 'a',
-                        },
-                        {
-                            desc = ' dotfiles',
-                            group = 'Number',
-                            action = 'Telescope dotfiles',
-                            key = 'd',
-                        },
-                    },
-                    packages = { enable = true }, -- show how many plugins neovim loaded
-                    -- limit how many projects list, action when you press key or enter it will run this action.
-                    project = { limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
-                    mru = { limit = 10, icon = 'your icon', label = '', },
-                    footer = {}, -- footer
-                },
-            }
-        end,
-        requires = { 'nvim-tree/nvim-web-devicons' }
+            require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+            -- require 'alpha'.setup(require 'alpha.themes.startify'.config)
+        end
     }
+
+    -- use {
+    --     'glepnir/dashboard-nvim',
+    --     event = 'VimEnter',
+    --     config = function()
+    --         require('dashboard').setup {
+    --             -- config
+    --             theme = 'hyper',
+    --             config = {
+    --                 week_header = {
+    --                     enable = true,
+    --                 },
+    --                 shortcut = {
+    --                     { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
+    --                     {
+    --                         desc = ' Files',
+    --                         group = 'Label',
+    --                         action = 'Telescope find_files',
+    --                         key = 'f',
+    --                     },
+    --                     {
+    --                         desc = ' Apps',
+    --                         group = 'DiagnosticHint',
+    --                         action = 'Telescope app',
+    --                         key = 'a',
+    --                     },
+    --                     {
+    --                         desc = ' dotfiles',
+    --                         group = 'Number',
+    --                         action = 'Telescope dotfiles',
+    --                         key = 'd',
+    --                     },
+    --                     { icon = "  ", desc = 'Recently lastest session    ', shortcut = "Leader s l", action = "" },
+    --                     { icon = "  ", desc = "Recently opened files       ", shortcut = "Leader f h", action = "" },
+    --                     { icon = "  ", desc = "Find File                   ", shortcut = "leader f f", action = "" },
+    --                     { icon = "  ", desc = "File Browser                ", shortcut = "leader f b", action = "" },
+    --                     { icon = "  ", desc = "Find Word                   ", shortcut = "leader f w", action = "" },
+    --                     { icon = "  ", desc = "Open Personal dotfiles      ", shortcut = "leader e e",
+    --                         action = "edit $MYVIMRC" },
+    --                 },
+    --                 packages = { enable = true }, -- show how many plugins neovim loaded
+    --                 -- limit how many projects list, action when you press key or enter it will run this action.
+    --                 project = { limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
+    --                 mru = { limit = 10, icon = 'your icon', label = '', },
+    --                 footer = {}, -- footer
+    --             },
+    --         }
+    --     end,
+    --     requires = { 'nvim-tree/nvim-web-devicons' }
+    -- }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
