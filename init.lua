@@ -8,3 +8,5 @@ require("plugins")
 
 -- 核心配置
 require("options")
+require("icons.text")
+require("icons.nerd_font")
