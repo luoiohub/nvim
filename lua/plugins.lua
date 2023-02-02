@@ -64,18 +64,18 @@ return require('packer').startup(function(use)
                 dashboard.button("q", "  Quit Neovim", ":qa!<CR>"),
             }
 
-            local footer = function()
-                local version = " " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
-                local lazy_ok, lazy = pcall(require, "lazy")
-                if lazy_ok then
-                    local total_plugins = "   " .. lazy.stats().count .. " Plugins"
-                    return version .. total_plugins
-                else
-                    return version
-                end
-            end
+            -- local footer = function()
+            --     local version = " " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
+            --     local lazy_ok, lazy = pcall(require, "lazy")
+            --     if lazy_ok then
+            --         local total_plugins = "   " .. lazy.stats().count .. " Plugins"
+            --         return version .. total_plugins
+            --     else
+            --         return version
+            --     end
+            -- end
 
-            dashboard.section.footer.val = footer()
+            -- dashboard.section.footer.val = footer()
 
             dashboard.section.footer.opts.hl = "AlphaFooter"
             dashboard.section.header.opts.hl = "AlphaHeader"
