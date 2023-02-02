@@ -18,9 +18,17 @@ local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
     -- Packer can manage itself
-    use 'wbthomason/packer.nvim'
+    use "wbthomason/packer.nvim"
 
-    use 'folke/tokyonight.nvim'
+    use "folke/which-key.nvim"
+
+    use "folke/tokyonight.nvim"
+
+    use "folke/neodev.nvim"
+
+    use { "folke/neoconf.nvim", cmd = "Neoconf" }
+
+    use "neovim/nvim-lspconfig"
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
