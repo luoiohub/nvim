@@ -8,3 +8,6 @@ require("plugins")
 
 -- 核心配置
 require("options")
+
+-- 自动命令
+require("autocmds")
