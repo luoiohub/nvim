@@ -30,12 +30,6 @@ return require('packer').startup(function(use)
         requires = { { 'hrsh7th/vim-vsnip', opt = true }, { 'hrsh7th/vim-vsnip-integ', opt = true } }
     }
 
-    -- Plugins can also depend on rocks from luarocks.org:
-    use {
-        'my/supercoolplugin',
-        rocks = { 'lpeg', { 'lua-cjson', version = '2.1.0' } }
-    }
-
     -- Plugins can have post-install/update hooks
     use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview' }
 
