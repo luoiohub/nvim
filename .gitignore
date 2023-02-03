@@ -1,3 +1,9 @@
+# VScode
+.vscode/
+
+# packer.nvim
+plugin/
+
 # Compiled Lua sources
 luac.out
 
