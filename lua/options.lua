@@ -35,4 +35,4 @@ opt.smartcase = true
 opt.termguicolors = true
 opt.signcolumn = "yes"
 vim.o.background = "light"
-vim.cmd [[colorscheme tokyonight-storm]]
+vim.cmd [[colorscheme tokyonight-day]]

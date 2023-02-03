@@ -1,4 +1,14 @@
 local vim = vim
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
+
+vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
 
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
@@ -29,6 +39,32 @@ return require('packer').startup(function(use)
     use { "folke/neoconf.nvim", cmd = "Neoconf" }
 
     use "neovim/nvim-lspconfig"
+
+    use {
+        "lukas-reineke/indent-blankline.nvim",
+        -- require("indent_blankline").setup {
+        --     -- for example, context is off by default, use this to turn it on
+        --     show_current_context = true,
+        --     show_current_context_start = true,
+        -- }
+    }
+
+    use {
+        "nvim-treesitter/nvim-treesitter",
+        run = function()
+            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
+            ts_update()
+        end,
+    }
+
+    use "nvim-tree/nvim-web-devicons"
+
+    use {
+        "nvim-telescope/telescope.nvim", tag = "0.1.1", -- or branch = "0.1.x",
+        requires = { { "nvim-lua/plenary.nvim" } }
+    }
+
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     use {
         'goolord/alpha-nvim',
