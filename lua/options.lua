@@ -1,36 +1,51 @@
 local vim = vim
 local opt = vim.opt
 
--- 行号
-opt.relativenumber = false
 opt.number = true
+opt.relativenumber = false
 
--- 缩进
+vim.scriptencoding = 'utf-8'
+opt.encoding = 'utf-8'
+opt.fileencoding = 'utf-8'
+
+opt.scrolloff = 5
+opt.sidescrolloff = 5
+
 opt.tabstop = 4
+opt.softtabstop = 4
 opt.shiftwidth = 4
 opt.expandtab = true
 opt.autoindent = true
 
--- 防止折行
 opt.wrap = false
 
--- 光标行高亮
 opt.cursorline = true
 
--- 启用鼠标
 opt.mouse:append("a")
-
--- 系统剪贴板
 opt.clipboard:append("unnamedplus")
 
--- 默认新窗口右和下
-opt.splitright = true
-opt.splitbelow = true
+opt.hlsearch = true
+opt.incsearch = true
 
--- 搜索
 opt.ignorecase = true
 opt.smartcase = true
+
+opt.swapfile = false
+opt.autoread = true
+vim.bo.autoread = true
+
+opt.signcolumn = 'yes'
+opt.list = true
+
+opt.cursorline = true
+opt.termguicolors = true
+
+opt.updatetime = 300
+opt.timeoutlen = 500
 
 -- 外观
 opt.termguicolors = true
 opt.signcolumn = "yes"
+-- 默认新窗口右和下
+opt.splitright = true
+opt.splitbelow = true
