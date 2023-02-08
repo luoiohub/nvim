@@ -4,6 +4,9 @@
 # packer.nvim
 plugin/
 
+# Github-copilot
+/pack
+
 # Compiled Lua sources
 luac.out
 
