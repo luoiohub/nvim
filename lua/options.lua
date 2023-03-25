@@ -49,3 +49,6 @@ opt.signcolumn = "yes"
 -- 默认新窗口右和下
 opt.splitright = true
 opt.splitbelow = true
+-- 主题
+vim.o.background = "light"
+vim.cmd [[colorscheme tokyonight-storm]]
