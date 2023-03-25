@@ -10,3 +10,6 @@ require("plugins")
 require("options")
 require("icons.text")
 require("icons.nerd_font")
+
+-- 自动命令
+require("autocmds")
