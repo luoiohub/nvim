@@ -1,38 +1,42 @@
 local vim = vim
-local opt = vim.opt
 
 -- 行号
-opt.relativenumber = false
-opt.number = true
+vim.vim.opt.relativenumber = false
+vim.opt.number = true
 
 -- 缩进
-opt.tabstop = 4
-opt.shiftwidth = 4
-opt.expandtab = true
-opt.autoindent = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.expandtab = true
+vim.opt.autoindent = true
 
--- 防止折行
-opt.wrap = false
+-- 折行
+vim.opt.wrap = false
+
+-- 空格显示
+vim.opt.list = true
+vim.opt.listchars:append "space:⋅"
+vim.opt.listchars:append "eol:↴"
 
 -- 光标行高亮
-opt.cursorline = true
+vim.opt.cursorline = true
 
 -- 启用鼠标
-opt.mouse:append("a")
+vim.opt.mouse:append("a")
 
 -- 系统剪贴板
-opt.clipboard:append("unnamedplus")
+vim.opt.clipboard:append("unnamedplus")
 
 -- 默认新窗口右和下
-opt.splitright = true
-opt.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- 搜索
-opt.ignorecase = true
-opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
 
 -- 外观
-opt.termguicolors = true
-opt.signcolumn = "yes"
+vim.opt.termguicolors = true
+vim.opt.signcolumn = "yes"
 vim.o.background = "light"
 vim.cmd [[colorscheme tokyonight-day]]

@@ -1,180 +1,102 @@
 local vim = vim
-vim.opt.list = true
-vim.opt.listchars:append "space:⋅"
-vim.opt.listchars:append "eol:↴"
 
-vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
-vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
-
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
-
-local ensure_packer = function()
-    local fn = vim.fn
-    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-    if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-        vim.cmd [[packadd packer.nvim]]
-        return true
-    end
-    return false
+-- bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
+local plugins = {
+    "folke/which-key.nvim",
+    { "folke/neoconf.nvim", cmd = "Neoconf" },
+    "folke/neodev.nvim",
+    "folke/tokyonight.nvim",
+    "nvim-treesitter/nvim-treesitter",
+}
 
-return require('packer').startup(function(use)
-    -- Packer can manage itself
-    use "wbthomason/packer.nvim"
+local opts = {
+    -- your options here
+    root = vim.fn.stdpath("data") .. "/lazy", -- directory where plugins will be installed
+    defaults = {
+        lazy = false,                         -- should plugins be lazy-loaded?
+        version = nil,
+        -- default `cond` you can use to globally disable a lot of plugins
+        -- when running inside vscode for example
+        cond = nil, ---@type boolean|fun(self:LazyPlugin):boolean|nil
+        -- version = "*", -- enable this to try installing the latest stable versions of plugins
+    },
+    lockfile = vim.fn.stdpath("config") .. "/lazy-lock.json", -- lockfile generated after running update.
+    git = {
+        -- defaults for the `Lazy log` command
+        -- log = { "-10" }, -- show the last 10 commits
+        log = { "--since=3 days ago" }, -- show commits from the last 3 days
+        timeout = 120,                  -- kill processes that take more than 2 minutes
+        url_format = "https://github.com/%s.git",
+        -- lazy.nvim requires git >=2.19.0. If you really want to use lazy with an older version,
+        -- then set the below to false. This should work, but is NOT supported and will
+        -- increase downloads a lot.
+        filter = true,
+    },
+    install = {
+        -- install missing plugins on startup. This doesn't increase startup time.
+        missing = true,
+        -- try to load one of these colorschemes when starting an installation during startup
+        colorscheme = { "habamax" },
+    },
+    ui = {
+        -- a number <1 is a percentage., >1 is a fixed size
+        size = { width = 0.8, height = 0.8 },
+        wrap = true, -- wrap the lines in the ui
+        -- The border to use for the UI window. Accepts same border values as |nvim_open_win()|.
+        border = "none",
+        icons = {
+            cmd = " ",
+            config = "",
+            event = "",
+            ft = " ",
+            init = " ",
+            import = " ",
+            keys = " ",
+            lazy = "󰒲 ",
+            loaded = "●",
+            not_loaded = "○",
+            plugin = " ",
+            runtime = " ",
+            source = " ",
+            start = "",
+            task = "✔ ",
+            list = {
+                "●",
+                "➜",
+                "★",
+                "‒",
+            },
+        },
+    },
+    diff = {
+        -- diff command <d> can be one of:
+        -- * browser: opens the github compare view. Note that this is always mapped to <K> as well,
+        --   so you can have a different command for diff <d>
+        -- * git: will run git diff and open a buffer with filetype git
+        -- * terminal_git: will open a pseudo terminal with git diff
+        -- * diffview.nvim: will open Diffview to show the diff
+        cmd = "git",
+    },
+    checker = {
+        -- automatically check for plugin updates
+        enabled = false,
+        concurrency = nil, ---@type number? set to 1 to check for updates very slowly
+        notify = true,    -- get a notification when new updates are found
+        frequency = 3600, -- check for updates every hour
+    },
+}
 
-    use "folke/which-key.nvim"
-
-    use "folke/tokyonight.nvim"
-
-    use "folke/neodev.nvim"
-
-    use { "folke/neoconf.nvim", cmd = "Neoconf" }
-
-    use "neovim/nvim-lspconfig"
-
-    use {
-        "lukas-reineke/indent-blankline.nvim",
-        -- require("indent_blankline").setup {
-        --     -- for example, context is off by default, use this to turn it on
-        --     show_current_context = true,
-        --     show_current_context_start = true,
-        -- }
-    }
-
-    use {
-        "nvim-treesitter/nvim-treesitter",
-        run = function()
-            local ts_update = require("nvim-treesitter.install").update({ with_sync = true })
-            ts_update()
-        end,
-    }
-
-    use "nvim-tree/nvim-web-devicons"
-
-    use {
-        "nvim-telescope/telescope.nvim", tag = "0.1.1", -- or branch = "0.1.x",
-        requires = { { "nvim-lua/plenary.nvim" } }
-    }
-
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-    use {
-        'goolord/alpha-nvim',
-        requires = { 'nvim-tree/nvim-web-devicons' },
-        config = function()
-            -- require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
-            -- require 'alpha'.setup(require 'alpha.themes.startify'.config)
-            local alpha = require "alpha"
-
-            local headers = {
-                ["nvim"] = {
-                    " ",
-                    " ",
-                    "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-                    "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-                    "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-                    "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-                    "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-                    "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-                },
-            }
-
-            local dashboard = require "alpha.themes.dashboard"
-            dashboard.section.header.val = headers.nvim
-
-            dashboard.section.buttons.val = {
-                dashboard.button("f", "  Find File", ":Telescope find_files<CR>"),
-                dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
-                dashboard.button("r", "  Recent Files", ":Telescope oldfiles<CR>"),
-                dashboard.button("t", "  Find Text", ":Telescope live_grep<CR>"),
-                dashboard.button("c", "  Configuration", ":e $MYVIMRC<CR>"),
-                dashboard.button("u", "  Update Plugins", ":Lazy update<CR>"),
-                dashboard.button("q", "  Quit Neovim", ":qa!<CR>"),
-            }
-
-            -- local footer = function()
-            --     local version = " " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
-            --     local lazy_ok, lazy = pcall(require, "lazy")
-            --     if lazy_ok then
-            --         local total_plugins = "   " .. lazy.stats().count .. " Plugins"
-            --         return version .. total_plugins
-            --     else
-            --         return version
-            --     end
-            -- end
-
-            -- dashboard.section.footer.val = footer()
-
-            dashboard.section.footer.opts.hl = "AlphaFooter"
-            dashboard.section.header.opts.hl = "AlphaHeader"
-            dashboard.section.buttons.opts.hl = "AlphaButton"
-
-            dashboard.opts.opts.noautocmd = true
-            alpha.setup(dashboard.opts)
-        end
-    }
-
-    -- use {
-    --     'glepnir/dashboard-nvim',
-    --     event = 'VimEnter',
-    --     config = function()
-    --         require('dashboard').setup {
-    --             -- config
-    --             theme = 'hyper',
-    --             config = {
-    --                 week_header = {
-    --                     enable = true,
-    --                 },
-    --                 shortcut = {
-    --                     { desc = ' Update', group = '@property', action = 'Lazy update', key = 'u' },
-    --                     {
-    --                         desc = ' Files',
-    --                         group = 'Label',
-    --                         action = 'Telescope find_files',
-    --                         key = 'f',
-    --                     },
-    --                     {
-    --                         desc = ' Apps',
-    --                         group = 'DiagnosticHint',
-    --                         action = 'Telescope app',
-    --                         key = 'a',
-    --                     },
-    --                     {
-    --                         desc = ' dotfiles',
-    --                         group = 'Number',
-    --                         action = 'Telescope dotfiles',
-    --                         key = 'd',
-    --                     },
-    --                     { icon = "  ", desc = 'Recently lastest session    ', shortcut = "Leader s l", action = "" },
-    --                     { icon = "  ", desc = "Recently opened files       ", shortcut = "Leader f h", action = "" },
-    --                     { icon = "  ", desc = "Find File                   ", shortcut = "leader f f", action = "" },
-    --                     { icon = "  ", desc = "File Browser                ", shortcut = "leader f b", action = "" },
-    --                     { icon = "  ", desc = "Find Word                   ", shortcut = "leader f w", action = "" },
-    --                     { icon = "  ", desc = "Open Personal dotfiles      ", shortcut = "leader e e",
-    --                         action = "edit $MYVIMRC" },
-    --                 },
-    --                 packages = { enable = true }, -- show how many plugins neovim loaded
-    --                 -- limit how many projects list, action when you press key or enter it will run this action.
-    --                 project = { limit = 8, icon = 'your icon', label = '', action = 'Telescope find_files cwd=' },
-    --                 mru = { limit = 10, icon = 'your icon', label = '', },
-    --                 footer = {}, -- footer
-    --             },
-    --         }
-    --     end,
-    --     requires = { 'nvim-tree/nvim-web-devicons' }
-    -- }
-
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if packer_bootstrap then
-        require('packer').sync()
-    end
-end)
+require("lazy").setup(plugins, opts)
