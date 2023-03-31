@@ -4,7 +4,7 @@
 ## 插件管理器
 使用 [folke/lazy.nvim](https://github.com/folke/lazy.nvim) 插件管理器
 
-## 插件 list
+## 插件列表
 
 ```
 folke/lazy.nvim
