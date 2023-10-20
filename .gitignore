@@ -1,17 +1,14 @@
+# packer.nvim
+# plugin/
+
+# lazy.nvim
+# lazy-lock.json
+
 # VScode
 .vscode/
 
-# packer.nvim
-plugin/
-
-# lazy.nvim
-lazy-lock.json
-
 # Github-copilot
 /pack
-
-# Compiled Lua sources
-luac.out
 
 # luarocks build files
 *.zip

@@ -1,10 +1,10 @@
-local vim = vim
+-- 核心配置
+require("core")
 
--- 按键映射
+-- -- 按键映射
 require("keymaps")
 
--- 插件配置
+-- -- 插件配置
 require("plugins")
 
--- 核心配置
 require("options")

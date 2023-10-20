@@ -1,0 +1,9 @@
+{
+  "img-paste.vim": { "branch": "master", "commit": "787be15ff52ea2db5ae7b813ab8808c8d4cf749e" },
+  "lazy.nvim": { "branch": "main", "commit": "5c89dc52f42e5058a46b0912d7d9042f564e44e0" },
+  "markdown-preview.nvim": { "branch": "master", "commit": "02cc3874738bc0f86e4b91f09b8a0ac88aef8e96" },
+  "neoconf.nvim": { "branch": "main", "commit": "80aef060fdeb88aff063089b87e2a9910f041947" },
+  "neodev.nvim": { "branch": "main", "commit": "e812f3d0e62e21a164b70f90f642cf30129503e4" },
+  "tokyonight.nvim": { "branch": "main", "commit": "6303b7c44b712569d63603a82ad0d9e98a965fdc" },
+  "which-key.nvim": { "branch": "main", "commit": "94cb020ff33a1e0e22fac1c41663d2c439741f17" }
+}

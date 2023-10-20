@@ -14,13 +14,6 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local plugins = {
-    "folke/which-key.nvim",
-    { "folke/neoconf.nvim", cmd = "Neoconf" },
-    "folke/neodev.nvim",
-    "folke/tokyonight.nvim",
-    "nvim-treesitter/nvim-treesitter",
-}
 
 local opts = {
     -- your options here
@@ -99,4 +92,18 @@ local opts = {
     },
 }
 
-require("lazy").setup(plugins, opts)
+require("lazy").setup({
+    "folke/which-key.nvim",
+  { "folke/neoconf.nvim", cmd = "Neoconf" },
+    "folke/neodev.nvim",
+    "folke/tokyonight.nvim",
+    -- coc
+    
+    -- 任务管理
+    -- Markdown
+    {
+        "iamcco/markdown-preview.nvim",
+        build = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" },
+    },
+    "img-paste-devs/img-paste.vim",
+})
