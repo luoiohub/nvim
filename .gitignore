@@ -5,7 +5,7 @@
 # plugin/
 
 # lazy.nvim
-lazy-lock.json
+# lazy-lock.json
 
 # Github-copilot
 /pack
